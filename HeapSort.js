@@ -52,24 +52,27 @@ class HeapSort {
                 this.#swap(this.heap[0], this.heap[this.tracker])
         this.tracker -= 1
         this.#heapifyDown()
+
     }
 
     #heapifyDown(){
         let index = 0, largest = 0
-        // console.log(this.heap)
 
         while(this.hasLeftChild(index) && index < this.tracker ){
             largest = this.getLeftChildIndex(index);
-            if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(largest)){
+            if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
                 largest = this.getRightChildIndex(index)
             }
+            if(largest > this.tracker) return
             if(this.heap[index] > this.heap[largest]) return
             else {
+                
                 [this.heap[largest], this.heap[index]] =
                 this.#swap(this.heap[largest], this.heap[index])
                 index = largest
             }
         }
+
     }
 }
 
