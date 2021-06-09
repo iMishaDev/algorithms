@@ -13,22 +13,13 @@ class BubbleSort {
             isSorted = true;
             for(let i=0; i < arr.length-1; i++){
                 if(arr[i] > arr[i+1]){
-                    [arr[i], arr[i+1]]  = this.#swap(arr[i], arr[i+1])
+                    [arr[i], arr[i+1]]  = [arr[i+1], arr[i]]
                     isSorted = false
                 }
         }
         }
         return arr
     }
-
-    static #swap(element1, element2){
-        let temp = element1
-        element1 = element2
-        element2 = temp
-        return [ element1, element2 ]
-    }
-
-
 }
 console.log('Original: ', [10,5,7,33,6,1])
 console.log('Sorted: ', BubbleSort.sort([10,5,7,33,6,1]))
