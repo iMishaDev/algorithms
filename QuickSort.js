@@ -6,7 +6,7 @@ class QuickSort {
     }
 
     static #sortHelper(arr, start, end){
-        if(end <= start) return;
+        if(end <= start) return; 
         let mid = Math.floor((start + end)/2)
         this.#sortHelper(arr, start, mid)
         this.#sortHelper(arr, mid + 1, end)
@@ -22,20 +22,12 @@ class QuickSort {
                 start++;
             }
             if(arr[start] > arr[pivot] && arr[end] < arr[pivot]){
-                [arr[start], arr[end]] = this.#swap(arr[start], arr[end])
+                [arr[start], arr[end]] = [arr[end], arr[start]]
                 start ++;
                 end --;
             }
         }
     }
-
-    static #swap(element1, element2){
-        let temp = element1
-        element1 = element2
-        element2 = temp
-        return [ element1, element2 ]
-    }
-
 }
 
 console.log('Original :', [10,5,7,33,6,1])
