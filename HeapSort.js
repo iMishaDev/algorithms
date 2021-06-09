@@ -40,16 +40,10 @@ class HeapSort {
     }
 
 
-    #swap(element1, element2){
-        let temp = element1
-        element1 = element2
-        element2 = temp
-        return [ element1, element2 ]
-    }
 
     poll(){
         [this.heap[0], this.heap[this.tracker]] =
-                this.#swap(this.heap[0], this.heap[this.tracker])
+                [this.heap[this.tracker], this.heap[0]]
         this.tracker -= 1
         this.#heapifyDown()
 
@@ -68,7 +62,7 @@ class HeapSort {
             else {
                 
                 [this.heap[largest], this.heap[index]] =
-                this.#swap(this.heap[largest], this.heap[index])
+                [this.heap[index], this.heap[largest]]
                 index = largest
             }
         }
