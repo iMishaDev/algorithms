@@ -12,10 +12,11 @@ class MergeSort {
     }
 
     static #mergeSortHelper(arr){
-        if(arr.length < 2) return arr;
-        let mid = Math.floor((arr.length) /2)
+        let length = arr.length;
+        if(length < 2) return arr;
+        let mid = Math.floor((length) /2)
         let leftArr = arr.slice(0, mid)
-        let rightArr = arr.slice(mid, arr.length)
+        let rightArr = arr.slice(mid, length)
         return this.#mergeHalves(this.#mergeSortHelper(leftArr), this.#mergeSortHelper(rightArr))
     }
 
