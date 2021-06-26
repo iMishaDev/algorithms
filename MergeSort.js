@@ -8,44 +8,33 @@ class MergeSort {
      */
 
     static sort(arr){
-        this.#mergeSortHelper(arr)
-        return arr
+        return this.#mergeSortHelper(arr)
     }
 
     static #mergeSortHelper(arr){
-        if(arr.length < 2) return;
+        if(arr.length < 2) return arr;
         let mid = Math.floor((arr.length) /2)
         let leftArr = arr.slice(0, mid)
         let rightArr = arr.slice(mid, arr.length)
-        this.#mergeSortHelper(leftArr)
-        this.#mergeSortHelper(rightArr)
-        this.#mergeHalves(leftArr, rightArr, arr)
+        return this.#mergeHalves(this.#mergeSortHelper(leftArr), this.#mergeSortHelper(rightArr))
     }
 
-    static #mergeHalves(left, right, arr) {
-        let leftIterator = 0, rightIterator = 0, k = 0
+    static #mergeHalves(left, right) {
+        let leftIterator = 0, rightIterator = 0, sorted=[]
         while(leftIterator < left.length && rightIterator < right.length){
             if(left[leftIterator] >= right[rightIterator]){
-                arr[k] = right[rightIterator]
+                sorted.push(right[rightIterator])
                 rightIterator++;
             } else {
-                arr[k] = left[leftIterator]
+                sorted.push(left[leftIterator])
                 leftIterator++;
             }
-            k++;
         }
 
-        while(leftIterator < left.length){
-            arr[k] = left[leftIterator]
-            k++;
-            leftIterator++;
-        }
-
-        while(rightIterator < right.length){
-            arr[k] = right[rightIterator]
-            k++;
-            rightIterator++;
-        }
+        sorted = [...sorted,...left.slice(leftIterator)]
+        sorted = [...sorted,...right.slice(rightIterator)]
+        
+        return sorted;
     }
 }
 console.log('Original :', [10,5,7,33,6,1])
