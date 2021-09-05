@@ -15,11 +15,11 @@ class HeapSort {
     }
 
     hasLeftChild(index){
-        return this.heap[(index * 2) + 1]
+        return this.heap[(index * 2) + 1] && (index * 2) + 1 < this.tracker
     }
 
     hasRightChild(index){
-        return this.heap[(index * 2) + 2]
+        return this.heap[(index * 2) + 2] && (index * 2) + 2 < this.tracker 
     }
 
     getLeftChildIndex(index){
@@ -52,12 +52,11 @@ class HeapSort {
     #heapifyDown(){
         let index = 0, largest = 0
 
-        while(this.hasLeftChild(index) && index < this.tracker ){
+        while(this.hasLeftChild(index)){
             largest = this.getLeftChildIndex(index);
             if(this.hasRightChild(index) && this.getRightChild(index) > this.getLeftChild(index)){
                 largest = this.getRightChildIndex(index)
             }
-            if(largest > this.tracker) return
             if(this.heap[index] > this.heap[largest]) return
             else {
                 
