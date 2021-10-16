@@ -12,10 +12,6 @@ class CObject {
     }
 }
 class Solution {
-    get_large(profits, i){
-        let index = (profits.length - 1) - i;
-        return profits[index]
-    }
 
     get(max, objects){
         let profits = [];

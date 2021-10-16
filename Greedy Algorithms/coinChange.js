@@ -15,35 +15,33 @@ class Solution {
     }
 
 
-    get_large(i){
-        let index = (this.coins.length - 1) - i;
-        return this.coins[index]
-    }
-
-
     get_change_iter(amount){
         let change = [];
         let sum = 0;
-        let i = 0;
+        
         while(sum !== amount){
-            if(sum + this.get_large(i) <= amount){
-                sum += this.get_large(i)
-                change.push(this.get_large(i))
+            let coin = this.coins.pop();
+            if(sum + coin <= amount){
+                sum += coin
+                change.push(coin)
+                this.coins.push(coin)
             }
-            else i += 1;
         }
 
         return change;
     }
 
 
-    get_change_rec(i, sum, amount){
+    get_change_rec(sum, amount, coins=this.coins){
         if(sum === amount)
             return [];
-        if(this.get_large(i) + sum <= amount)
-            return [this.get_large(i) , ...this.get_change_rec(i, sum + this.get_large(i), amount)];
-        else return this.get_change_rec(i + 1, sum, amount);
+        let coin = coins.pop();
+        if(coin + sum <= amount){
+            coins.push(coin)
+            return [coin , ...this.get_change_rec( sum + coin, amount, coins)];
+        }
+        else return this.get_change_rec(sum, amount, coins);
     }
 }
 console.log(new Solution([5,2,1]).get_change_iter(18))
-console.log(new Solution([5,2,1]).get_change_rec(0, 0, 18))
+console.log(new Solution([5,2,1]).get_change_rec(0, 18))
