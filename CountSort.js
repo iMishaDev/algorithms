@@ -16,7 +16,7 @@ class CountSort {
             position = count[arr[i]];
             sorted[position] = arr[i];
         }
-        console.log(sorted)
+        return sorted;
     }
 }
 
