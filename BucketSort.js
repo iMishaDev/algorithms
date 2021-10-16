@@ -1,17 +1,30 @@
 class BucketSort {
 
-    static sort(arr){
-
+    sort(arr){
         let buckets = new Map()
-        arr.forEach((element) => {
-            let index = Math.floor(element)
-            if(!buckets.get(index))
-                buckets.set(index, [element])
-            else buckets.set(index, [...buckets.get(index),element])
-        });
-        return [...buckets.values()].sort().flat()
+        let index = 0;
+        let sorted = [];
+
+        for(let i = 0; i < 10; i++){
+            buckets.set(i, [])
+        }
+        
+        for(let i = 0; i < arr.length; i++){
+            index = Math.floor(arr[i] * 10);
+            buckets.get(index).push(arr[i])
+        }
+
+        for(let i = 0; i < buckets.size; i++){
+            buckets.get(index).sort()
+        }
+        
+        for(let i = 0; i < buckets.size; i++){
+            sorted = [...sorted, ...buckets.get(i)]
+        }
+
+        return sorted;
     }
 }
 
-console.log('Original :', [ 0.49 , 5.9 , 3.4 , 1.11 , 4.5 , 6.6 , 2.0])
-console.log('Sorted', BucketSort.sort([0.49 ,  0.5, 5.9 , 3.4 , 1.11 , 4.5 , 6.6 , 2.0]))
+console.log('Original :', [.42, .32, .33, .52, .37, .47, .51])
+console.log('Sorted', new BucketSort().sort([.42, .32, .33, .52, .37, .47, .51]))
