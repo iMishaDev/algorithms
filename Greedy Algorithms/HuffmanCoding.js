@@ -56,4 +56,4 @@ let charactersFrequency = [ 5, 9, 12, 13, 16, 45 ];
 
 let huffman = new HuffmanCoding();
 huffman.buildHuffmanTree(characters, charactersFrequency)
-huffman.printCode(huffman.root, "");
+huffman.printCode(huffman.root, '');
