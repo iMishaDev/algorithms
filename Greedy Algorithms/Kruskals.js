@@ -6,9 +6,9 @@ class Vertex {
 
 class Edge {
     constructor(cost, source, destination){
-        this.cost = cost;
         this.source = source;
         this.destination = destination;
+        this.cost = cost;
     }
 }
 
@@ -18,6 +18,7 @@ class Graph {
     constructor(n){
         this.adjacent = new Map();
         this.numOfVertices = n;
+        this.parents = new Array(this.numOfVertices + 1).fill(-1);
     }
 
 
@@ -32,37 +33,54 @@ class Graph {
     find(i){
         if(this.parents[i] > 0)
             return this.find(this.parents[i])
-        return this.parents[i];
+        return i;
     }
 
-    union(edge1, edge2){
-        this.find(edge1)
+    union(v1, v2){
+        const v1_parent = this.find(v1.value);
+        const v2_parent = this.find(v2.value);
+
+        if(this.parents[v1_parent] < this.parents[v2_parent]){
+            this.parents[v1_parent] -=  -1 * this.parents[v2_parent];
+            this.parents[v2_parent] = v1_parent;
+        } else if(this.parents[v2_parent] < this.parents[v1_parent]){
+            this.parents[v2_parent] -=  -1 * this.parents[v1_parent];
+            this.parents[v1_parent] = v2_parent;
+
+        } else {
+            this.parents[v1_parent] -= -1 * this.parents[v2_parent];
+            this.parents[v2_parent] = v1_parent;
+        }
     }
 
     getMST(){
-        let parents = new Array(this.numOfVertices).fill(-1);
         let queue = [];
-
+        let cycles = 0;
         for(const vertex of this.adjacent){ 
             vertex[1].map((edge) => queue.push(edge))
         }
 
         queue.sort((a, b) => b.cost - a.cost)
         while(queue.length){
-            let edge = queue.pop();
-            console.log(edge)
+            let {source, destination}  = queue.pop();
+            if(this.find(source.value) === this.find(destination.value)){
+                cycles += 1
+                
+            }
+            else this.union(source, destination);
         }
+        return this.parents;
     }
 }
 
-let vertex1 = new Vertex('1');
-let vertex2 = new Vertex('2');
-let vertex3 = new Vertex('3');
-let vertex4 = new Vertex('4');
-let vertex5 = new Vertex('5');
-let vertex6 = new Vertex('6');
-let vertex7 = new Vertex('7');
-let vertex8 = new Vertex('8');
+let vertex1 = new Vertex(1);
+let vertex2 = new Vertex(2);
+let vertex3 = new Vertex(3);
+let vertex4 = new Vertex(4);
+let vertex5 = new Vertex(5);
+let vertex6 = new Vertex(6);
+let vertex7 = new Vertex(7);
+let vertex8 = new Vertex(8);
 
 let graph = new Graph(8);
 
