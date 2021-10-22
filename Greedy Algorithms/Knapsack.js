@@ -45,7 +45,7 @@ class Solution {
 
     get01KNapsack(wt, p, max){
         let table  = new Array(wt.length).fill(0).map(() => new Array(max + 1).fill(0))
-        let result = [];
+        let result = new Array(wt.length).fill(0);
 
         for(let i = 0; i < table.length; i++){
             for(let w = 0; w < table[i].length; w++){
@@ -61,13 +61,13 @@ class Solution {
         let i = table[0].length - 1;
         while( w > 0 && i > 0){
             if(table[w][i] !== table[w - 1][i]){
-                result.push(w);
+                result[w] = 1;
                 i -= wt[w]
-            }
+            } else result[w] = 0;
             w -= 1;
         }
 
-        console.log(result)
+        return result;
     }
 }
 let objects = [
