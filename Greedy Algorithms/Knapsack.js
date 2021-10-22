@@ -63,7 +63,7 @@ class Solution {
             if(table[w][i] !== table[w - 1][i]){
                 result[w] = 1;
                 i -= wt[w]
-            } else result[w] = 0;
+            }
             w -= 1;
         }
 
@@ -83,4 +83,5 @@ let objects = [
 let wt = [0, 2, 3, 4, 5];
 let p = [0, 1, 2, 5, 6];
 console.log(new Solution().get(15, objects))
+console.log(wt)
 console.log(new Solution().get01KNapsack(wt, p, 8))
