@@ -4,7 +4,6 @@ class TravelingSalesperson {
         this.graph = graph;
         this.min =  Number.MAX_VALUE;
         this.visited = {};
-        this.visited[0] = 1;
     }
 
     get(){
@@ -18,14 +17,15 @@ class TravelingSalesperson {
             return;
         }
         
-        for (var i = 0; i < n; i++) {
-            if (!this.visited[i] && this.graph[k][i]) {
-    
-                this.visited[i] = 1;
-                this.get_helper(i, n, count + 1, cost + this.graph[k][i]);
-    
-                this.visited[i] = 0;
-            }
+        for (let i = 0; i < n; i++) {
+                if (!this.visited[i] && this.graph[k][i]) {
+
+                    this.visited[i] = 1;
+                    
+                    this.get_helper(i, n, count + 1, cost + this.graph[k][i]);
+        
+                    this.visited[i] = 0;
+                }
         }
         return this.min;
     }
