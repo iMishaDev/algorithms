@@ -47,6 +47,28 @@ class HuffmanCoding {
         this.printCode(root.leftChild, s + '0');
         this.printCode(root.rightChild, s + '1');
     }
+
+    decoding(message){
+        let decoded = '';
+        let root = this.root;
+        message = message.split('')
+        while(message.length){
+            let letter = message.shift();
+            if(!root.leftChild && !root.rightChild) {
+                console.log(root.char)
+
+                decoded += root.char;
+                root = this.root;
+            }
+            
+            if (letter == '1')
+                root = root.rightChild;
+            else root = root.leftChild;
+            
+        }
+
+        return decoded;
+    }
 }
 
 
@@ -57,3 +79,5 @@ let charactersFrequency = [ 5, 9, 12, 13, 16, 45 ];
 let huffman = new HuffmanCoding();
 huffman.buildHuffmanTree(characters, charactersFrequency)
 huffman.printCode(huffman.root, '');
+
+console.log(huffman.decoding('110011011101100100'));
