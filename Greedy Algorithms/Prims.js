@@ -5,9 +5,11 @@ class Vertex {
 }
 
 class Edge {
-    constructor(cost, vertex){
+    constructor(source, dest, cost){
+        this.source = source;
+        this.dest = dest;
         this.cost = cost;
-        this.vertex = vertex;
+
     }
 }
 
@@ -24,8 +26,8 @@ class Graph {
     }
 
     addEdge(v1, v2, cost){ 
-        this.adjacent.get(v1).push(new Edge(cost, v2));
-        this.adjacent.get(v2).push(new Edge(cost, v1));
+        this.adjacent.get(v1).push(new Edge(v1, v2, cost));
+        this.adjacent.get(v2).push(new Edge(v2, v1, cost));
     }
 
     getMST(v){
@@ -37,34 +39,33 @@ class Graph {
         visited.add(v)
 
         for (const edge of this.adjacent.get(v)){
-            queue.push([v, edge]);
+            queue.push(edge);
 
-            queue.sort((a, b) => a[1].cost - b[1].cost)
+            queue.sort((a, b) => a.cost - b.cost)
         }
 
-        let [source, minEdge] = queue.shift();
+        let minEdge = queue.shift();
 
 
         while(queue.length){
             
-            while(queue.length && visited.has(minEdge.vertex)){
-                [source, minEdge] = queue.shift();
+            while(queue.length && visited.has(minEdge.dest)){
+                minEdge = queue.shift();
             }
 
-            let next  = minEdge.vertex;
+            let next  = minEdge.dest;
 
             if(!visited.has(next)){
                 mst.addVertex(next);
-                mst.addEdge(source, next, minEdge.cost)
+                mst.addEdge(minEdge.source, next, minEdge.cost)
                 visited.add(next)
                 
                 for (const edge of this.adjacent.get(next)){
-                    queue.push([next, edge]);
+                    queue.push(edge);
 
-                    queue.sort((a, b) => a[1].cost - b[1].cost)
+                    queue.sort((a, b) => a.cost - b.cost)
                 }
             }
-            source = next;
         }
 
         return mst;
@@ -73,7 +74,7 @@ class Graph {
 
     show(){
         for(const vertex of this.adjacent){ 
-            console.log(`${vertex[0].value}: ${vertex[1].map((em) => em.vertex.value)} `)
+            console.log(`${vertex[0].value}: ${vertex[1].map((em) => em.dest.value)} `)
             
         }
     }
