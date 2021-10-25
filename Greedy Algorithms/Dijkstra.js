@@ -28,7 +28,7 @@ class Graph {
         this.adjacent.get(v1).push(new Edge(cost, v2));
     }
 
-    getShortestPath(source, destination){
+    getShortestPath(source){
         source.distance = 0;
         let stack = [source];
 
@@ -70,7 +70,7 @@ graph.addEdge(vertex2, vertex3, 1)
 graph.addEdge(vertex2, vertex4, 7)
 graph.addEdge(vertex3, vertex5, 3)
 graph.addEdge(vertex5, vertex4, 2)
-graph.addEdge(vertex5, vertex6, 5)
-graph.addEdge(vertex4, vertex6, 1)
-
-console.log(graph.getShortestPath(vertex1, vertex6 ))
+// graph.addEdge(vertex5, vertex6, 5)
+// graph.addEdge(vertex4, vertex6, 1)
+console.log(graph.getShortestPath(vertex1))
+console.log(graph.adjacent)
