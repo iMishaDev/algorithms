@@ -34,5 +34,4 @@ class LongestCommonSubsequence {
 let lcs = new LongestCommonSubsequence('bd', 'abcd');
 
 console.log(lcs.get_longest())
-
-console.log(lcs.get_longest_dynamic(1, 1))
+console.log(lcs.get_longest_dynamic())
