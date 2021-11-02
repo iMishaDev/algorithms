@@ -1,15 +1,13 @@
-class Knapsack {
+class Solution {
     get01KNapsack(wt, p, max){
         let table  = new Array(wt.length).fill(0).map(() => new Array(max + 1).fill(0))
         let result = new Array(wt.length).fill(0);
-
-        for(let i = 0; i < table.length; i++){
-            for(let w = 0; w < table[i].length; w++){
-                if(i == 0 || w == 0)
-                    table[i][w] = 0;
-                else if(wt[i] <= w){
-                    table[i][w] = Math.max(p[i] + table[i - 1][w - wt[i]], table[i - 1][w])
-                } else table[i][w] = table[i - 1][w];
+        table[0][0] = 0;
+        for(let coming_weight = 1; coming_weight < table.length; coming_weight++){
+            for(let w = 1; w < table[coming_weight].length; w++){
+                if(wt[coming_weight] <= w){
+                    table[coming_weight][w] = Math.max(p[coming_weight] + table[coming_weight - 1][w - wt[coming_weight]], table[coming_weight - 1][w])
+                } else table[coming_weight][w] = table[coming_weight - 1][w];
             }
         }
 
@@ -29,4 +27,4 @@ class Knapsack {
 let wt = [0, 2, 3, 4, 5];
 let p = [0, 1, 2, 5, 6];
 console.log(wt)
-console.log(new knapsack().get01KNapsack(wt, p, 8))
+console.log(new Solution().get01KNapsack(wt, p, 8))
