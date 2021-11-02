@@ -41,16 +41,16 @@ class Graph {
         for (const edge of this.adjacent.get(v)){
             queue.push(edge);
 
-            queue.sort((a, b) => a.cost - b.cost)
+            queue.sort((a, b) => b.cost - a.cost)
         }
 
-        let minEdge = queue.shift();
+        let minEdge = queue.pop();
 
 
         while(queue.length){
             
             while(queue.length && visited.has(minEdge.dest)){
-                minEdge = queue.shift();
+                minEdge = queue.pop();
             }
 
             let next  = minEdge.dest;
@@ -63,7 +63,7 @@ class Graph {
                 for (const edge of this.adjacent.get(next)){
                     queue.push(edge);
 
-                    queue.sort((a, b) => a.cost - b.cost)
+                    queue.sort((a, b) => b.cost - a.cost)
                 }
             }
         }

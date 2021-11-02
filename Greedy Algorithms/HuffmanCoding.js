@@ -19,11 +19,11 @@ class HuffmanCoding {
             this.queue.push(node);
         }
 
-        this.queue.sort((a, b) => a.data - b.data);
+        this.queue.sort((a, b) =>   b.data - a.data);
         let root = null;
         while(this.queue.length > 1){
-            let node1 = this.queue.shift();
-            let node2 = this.queue.shift();
+            let node1 = this.queue.pop();
+            let node2 = this.queue.pop();
 
             let newNode = new HuffmanNode(node1.data + node2.data, '-')
             newNode.leftChild = node1;
@@ -31,7 +31,7 @@ class HuffmanCoding {
             root = newNode;
 
             this.queue.push(newNode);
-            this.queue.sort((a, b) => a.data - b.data);
+            this.queue.sort((a, b) =>  b.data -  a.data );
         }
 
         this.root = root;
